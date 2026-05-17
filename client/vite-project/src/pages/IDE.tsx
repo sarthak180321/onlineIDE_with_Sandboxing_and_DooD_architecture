@@ -18,13 +18,21 @@ function IDE() {
         navigate('/login')
     }
 
+    // const handleLoadUrl = () => {
+    //     if (!inputUrl.trim()) return
+    //     const cleaned = inputUrl.trim().replace(/^https?:\/\//, '')
+    //     const url = `http://localhost:3000/${containerId}/${cleaned}`
+    //     setIframeUrl(url)
+    //     window.open(url, '_blank')
+    // }
     const handleLoadUrl = () => {
-        if (!inputUrl.trim()) return
-        const cleaned = inputUrl.trim().replace(/^https?:\/\//, '')
-        const url = `http://localhost:3000/${containerId}/${cleaned}`
-        setIframeUrl(url)
-        window.open(url, '_blank')
-    }
+    if (!inputUrl.trim()) return
+    const cleaned = inputUrl.trim().replace(/^https?:\/\//, '')
+    const port = cleaned.split(':')[1] || '80'
+    const url = `http://${containerId}-${port}.localhost:3000`
+    setIframeUrl(url)
+    window.open(url, '_blank')
+}
 
     return (
         <div style={styles.root}>

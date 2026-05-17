@@ -9,8 +9,6 @@ RUN apt-get update && apt-get install -y \
     git \
     iputils-ping \
     net-tools \
-    nodejs \
-    npm \
     python3 \
     python3-pip \
     build-essential \
@@ -21,6 +19,12 @@ RUN apt-get update && apt-get install -y \
     nano \
     bash \
     docker.io \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install latest Node.js LTS (v22) via NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

@@ -6,13 +6,11 @@ export const createContainer = async (userId: string): Promise<string> => {
     try{
     const containers = await docker.listContainers({ all: true });
     const existing = containers.find(c => c.Names.includes(`/${userId}`));
-
     if (existing) {
          const container = docker.getContainer(existing.Id);
           if (existing.State !== 'running') {
                 await container.start();
         }
-        // return existing.Id;
         return existing.Id.substring(0, 12);
     }
      const container = await docker.createContainer({
@@ -34,7 +32,6 @@ export const createContainer = async (userId: string): Promise<string> => {
                 AutoRemove: false,
             }
         });
-
         await container.start();
         return container.id.substring(0, 12);
     }
